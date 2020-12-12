@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <title>Blue</title>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet'>
+    <link rel="icon" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      h1 {
+        border: 1px blue;
+        border-radius: 5px;
+        color: #8697d2;
+        font-size: 2em;
+        margin: left;
+        padding: 5px;
+      }
+      #chatbox {
+        border: 1px solid white;
+        margin: 25px 50px 75px;
+        width: 40%;
+      }
+      #userInput {
+        margin-left: 30px;
+        margin-right: 30px;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #textInput {
+        width: 80%;
+        border: none;
+        border-bottom: 1px solid black;
+        font-family: 'sans-serif';
+        font-size: 11px;
+      }
+      .userText {
+        color: white;
+        background-color: #df6c1e;
+        font-family: 'sans-serif';
+        font-size: 17px;
+        text-align: left;
+        line-height: 20px;
+        border-radius: 50px;
+        padding: 15px;
+        width: 100px;
+        margin-left: left;
+      }
+      .userText span {
+        padding:10px;
+        border-radius: 5px;
+      }
+      .botText {
+        color: #fafaed;
+        background-color: #c0d6e4;
+        font-family: 'sans-serif';
+        font-size: 17px;
+        text-align: right;
+        line-height: 20px;
+        border-radius: 50px;
+        padding: 15px;
+        width: 200px;
+        margin-right: right;
+      }
+      .botText span {
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .boxed {
+        margin-left: left;
+
+        width: 100%;
+        margin-top: 40px;
+        border-radius: 5px;
+      }
+      input[type=text] {
+        bottom: 0;
+        width: 30%;
+        padding: 16px 10px;
+        margin: 10px 0;
+        box-sizing: border-box;
+        position: fixed;
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+<body background="{{ url_for('static', filename='images/slider.jpg') }}">
+    <img />
+    <center>
+      <h1>
+     Blue
+      </h1>
+    </center>
+    <div class="boxed">
+      <div>
+        <div id="chatbox">
+        </div>
+      </div>
+        <div id="userInput">
+          <input id="nameInput" type="text" name="msg" placeholder="Hier kann die Reise beginnen..." />
+            </div>
+<script>
+        function getBotResponse() {
+          var rawText = $("#nameInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#nameInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#nameInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+</script>
+</div>
+</body>
+</html
