@@ -97,7 +97,7 @@ def bag_of_words(s, words):
     return np.array(bag)
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 port = int(os.environ.get("PORT", 5000))
 
 
